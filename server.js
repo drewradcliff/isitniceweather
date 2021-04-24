@@ -35,8 +35,8 @@ app.get("/forecast", (req, res) => {
     .catch((error) => console.error("Could not get forcast data"));
 });
 
-app.use(express.static("./public"));
+app.use(express.static("public"));
 
-app.listen(port, () => {
-  console.log(`listening at http://localhost:${port}`);
+app.listen(process.env.PORT || port, () => {
+  console.log(`Server running...`);
 });
