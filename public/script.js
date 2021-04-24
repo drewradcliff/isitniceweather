@@ -1,7 +1,7 @@
 const success = (position) => {
   const lon = position.coords.longitude;
   const lat = position.coords.latitude;
-  fetch(`http://localhost:3000/forecast?lat=${lat}&lon=${lon}`)
+  fetch(`/forecast?lat=${lat}&lon=${lon}`)
     .then((res) => res.json())
     .then((data) => updateTemp(Math.round(data.current.temp_f)));
 };
