@@ -1,16 +1,24 @@
 const success = (position) => {
   const lon = position.coords.longitude;
   const lat = position.coords.latitude;
-  fetch(`/forecast?lat=${lat}&lon=${lon}`)
-    .then((res) => res.json())
-    .then((data) => updateTemp(Math.round(data.current.temp_f)));
+  status.textContent = "Location: ";
+  getForecast(lat, lon);
 };
 
 const error = () => {
-  const lon = -122.431297;
-  const lat = 37.773972;
-  status.textContent = `Could not get location... Showing default location (San Francisco): ${lat}, ${lon}`;
+  const lon = 7.26608;
+  const lat = 43.70313;
+  status.textContent = "Could not get location... Showing default location: ";
   getForecast(lat, lon);
+};
+
+const getForecast = (lat, lon) => {
+  fetch(`/forecast?lat=${lat}&lon=${lon}`)
+    .then((res) => res.json())
+    .then((data) => {
+      status.textContent += `${data.location.name}, ${data.location.country}`;
+      updateTemp(Math.round(data.current.temp_f));
+    });
 };
 
 const updateTemp = (temp) => {
@@ -22,4 +30,6 @@ const updateTemp = (temp) => {
   document.body.appendChild(tempText);
 };
 
+let status = document.createElement("p");
+document.body.appendChild(status);
 navigator.geolocation.getCurrentPosition(success, error);

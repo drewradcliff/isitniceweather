@@ -18,6 +18,7 @@ app.get("/", (req, res) => {
       <title>Is it nice weather?</title>
     </head>
     <body>
+      <h2>Is it nice weather?</h2>
       <script src="script.js"></script>
     </body>
     </html>
